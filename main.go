@@ -1,5 +1,5 @@
 package main
 
 import (
-	"labstack/echo/v4"
+	"github.com/labstack/echo/v4"
 )
