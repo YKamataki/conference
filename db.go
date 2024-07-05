@@ -48,6 +48,6 @@ type Presenter struct {
 }
 
 func MigrateDB(db *gorm.DB) {
-	db.AutoMigrate(Conference{})
-	db.AutoMigrate(Presenter{}).AddForeignKey("conference_id", "conferences(id)", "RESTRICT", "RESTRICT")
+	// Migrate the schema
+	db.AutoMigrate(&Conference{}, &Presenter{})
 }
