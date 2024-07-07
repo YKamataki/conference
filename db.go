@@ -53,9 +53,8 @@ func MigrateDB(db *gorm.DB) {
 }
 
 func GetConferences(db *gorm.DB) []Conference {
-  // Get all GetConferences
-  var conferences []Conference
-  db.Preload("Presenters").Find(&conferences)
-  return conferences
+	// Get all GetConferences
+	var conferences []Conference
+	db.Preload("Presenters").Find(&conferences)
+	return conferences
 }
-
