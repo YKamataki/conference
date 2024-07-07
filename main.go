@@ -13,13 +13,18 @@ func main() {
 	// Connect to DB
 	db := ConnectDB()
 
+	// Routes
+	e.GET("/", func(ctx echo.Context) error {
+		return ctx.String(http.StatusOK, "Hello World!\ngithub.com/YKamataki/conference")
+	})
+
 	e.GET("/api/conferences", func(ctx echo.Context) error {
 		// Get all conferences
 		conferences := GetConferences(db)
 		// build json response
 		resp, err := json.Marshal(conferences)
 		if err != nil {
-			return ctx.JSON(http.StatusInternalServerError, err)
+			return ctx.String(http.StatusInternalServerError, err)
 		}
 		return ctx.JSON(http.StatusOK, resp)
 	})
