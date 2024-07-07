@@ -24,7 +24,7 @@ func main() {
 		// build json response
 		resp, err := json.Marshal(conferences)
 		if err != nil {
-			return ctx.String(http.StatusInternalServerError, err)
+			return ctx.String(http.StatusInternalServerError, err.Error())
 		}
 		return ctx.JSON(http.StatusOK, resp)
 	})
