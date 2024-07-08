@@ -51,3 +51,10 @@ func MigrateDB(db *gorm.DB) {
 	// Migrate the schema
 	db.AutoMigrate(&Conference{}, &Presenter{})
 }
+
+func GetConferences(db *gorm.DB) []Conference {
+	// Get all GetConferences
+	var conferences []Conference
+	db.Preload("Presenters").Find(&conferences)
+	return conferences
+}

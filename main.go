@@ -1,6 +1,7 @@
 package main
 
 import (
+	"encoding/json"
 	"net/http"
 
 	"github.com/labstack/echo/v4"
@@ -9,10 +10,23 @@ import (
 func main() {
 	e := echo.New()
 
-	e.GET("/", func(c echo.Context) error {
-		db := ConnectDB()
-		MigrateDB(db)
-		return c.String(http.StatusOK, "DB connection and migration are successful!")
+	// Connect to DB
+	db := ConnectDB()
+
+	// Routes
+	e.GET("/", func(ctx echo.Context) error {
+		return ctx.String(http.StatusOK, "Hello World!\ngithub.com/YKamataki/conference")
+	})
+
+	e.GET("/api/conferences", func(ctx echo.Context) error {
+		// Get all conferences
+		conferences := GetConferences(db)
+		// build json response
+		resp, err := json.Marshal(conferences)
+		if err != nil {
+			return ctx.String(http.StatusInternalServerError, err.Error())
+		}
+		return ctx.JSON(http.StatusOK, resp)
 	})
 
 	e.Logger.Fatal(e.Start(":443"))
