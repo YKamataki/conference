@@ -29,5 +29,11 @@ func main() {
 		return ctx.JSON(http.StatusOK, resp)
 	})
 
+	e.GET("/api/migrate", func(ctx echo.Context) error {
+		// Migrate the schema
+		MigrateDB(db)
+		return ctx.String(http.StatusOK, "Migrated")
+	})
+
 	e.Logger.Fatal(e.Start(":443"))
 }
