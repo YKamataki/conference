@@ -5,7 +5,7 @@
 package main
 
 import (
-	"gorm.io/driver/postgres"
+	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
 
 	"os"   // for environment variables
@@ -22,7 +22,7 @@ func ConnectDB() *gorm.DB {
 	// Connect to the database
 	dsn := "host=" + dbHost + " user=" + dbUser + " password=" + dbPass + " dbname=postgres port=" + dbPort + " sslmode=disable TimeZone=Asia/Tokyo"
 
-	db, err := gorm.Open(postgres.Open(dsn), &gorm.Config{})
+	db, err := gorm.Open(mysql.Open(dsn), &gorm.Config{})
 	if err != nil {
 		panic(err)
 	}
