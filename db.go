@@ -8,6 +8,7 @@ import (
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
 
+	"fmt"
 	"os"   // for environment variables
 	"time" // for using date
 )
@@ -18,9 +19,10 @@ func ConnectDB() *gorm.DB {
 	dbPort := os.Getenv("DB_PORT")
 	dbUser := os.Getenv("DB_USER")
 	dbPass := os.Getenv("DB_PASS")
+	dbName := os.Getenv("DB_NAME")
 
 	// Connect to the database
-	dsn := "host=" + dbHost + " user=" + dbUser + " password=" + dbPass + " dbname=postgres port=" + dbPort + " sslmode=disable TimeZone=Asia/Tokyo"
+	dsn := fmt.Sprintf("%s:%s@tcp(%s:%s)/%s?charset=utf8mb4&parseTime=True&loc=Local", dbUser, dbPass, dbHost, dbPort, dbName)
 
 	db, err := gorm.Open(mysql.Open(dsn), &gorm.Config{})
 	if err != nil {
